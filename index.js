@@ -2,17 +2,21 @@
 //  get satisfied by the condition written in the middle ware;
 // we can also write the condition inside the function but middleware can be reused in many routes,  
 
-const http=require('http');
+
 const express=require('express');
 const app=express();
-const server=http.createServer(app);
+const bodyParser=require('body-parser');
+const adminRouter=require('./routes/admin');
+const shopRoutes=require('./routes/shop');
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(adminRouter);
+app.use(shopRoutes);
+
 app.use((req,res,next)=>{
-    console.log("first middelwarer")
-    next();
+    res.status(404).send("<h1>page not found</h1>")
 })
-app.use((req,res,next)=>{
-    console.log("second middleware");
-    res.send('<h1>hello</h1>')
-    
-})
-server.listen(3000);
+
+
+app.listen(3000);
