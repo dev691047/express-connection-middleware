@@ -8,14 +8,18 @@ const app=express();
 const bodyParser=require('body-parser');
 const adminRouter=require('./routes/admin');
 const shopRoutes=require('./routes/shop');
+const contactus=require('./routes/contact');
+const path=require('path')
 
 
+app.use('/public',express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(adminRouter);
 app.use(shopRoutes);
+app.use(contactus);
 
 app.use((req,res,next)=>{
-    res.status(404).send("<h1>page not found</h1>")
+    res.status(404).sendFile(path.join(__dirname,'views','404.html'))
 })
 
 

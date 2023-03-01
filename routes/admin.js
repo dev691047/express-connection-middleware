@@ -1,18 +1,15 @@
 const express=require("express");
 const router=express.Router();
+const path=require('path');
 
-router.get('/add-product',(req,res,next)=>{
-    console.log("second middleware");
-    res.send('<form action="/product" method="POST" ><input type="text" name:"title"/><button type="submit">save</button></form>')
+router.get('/admin/add-product',(req,res,next)=>{
+    res.sendFile(path.join(__dirname,'..','views','add-product.html'))
     
 })
-router.post('/product',(req,res)=>{
+
+router.post('/admin/add-product',(req,res)=>{
    console.log(req.body)
     res.redirect('/');
-    // res.send('<h3>hello</h3>')
 })
-
-
-
 
 module.exports=router;
